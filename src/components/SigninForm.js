@@ -1,11 +1,15 @@
-import { auth } from "fbase";
-import { signInWithEmailAndPassword } from "firebase/auth";
+import { authService } from "fbase";
 import { useState } from "react";
+import { useHistory } from "react-router";
+import EmailVerifyForm from "./EmailVerifyForm";
+import "../styles/signInForm.css";
 
-export default function SignInForm() {
+export default function SignInForm({ userObj }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  let [error, setError] = useState("");
+  const [verify, setVerify] = useState(false);
+  const [error, setError] = useState("");
+  const history = useHistory();
   const onChange = (event) => {
     const {
       target: { name, value },
@@ -20,10 +24,15 @@ export default function SignInForm() {
     event.preventDefault();
     try {
       let data;
-      data = await signInWithEmailAndPassword(auth, email, password);
-      console.log(data);
+      data = authService.signInWithEmailAndPassword(email, password);
+      if (data.user.emailVerified) console.log(data);
+      else {
+        setError("Please verify your email.");
+        setVerify(true);
+        return;
+      }
     } catch (error) {
-      setError(error.message);
+      setError(error);
     }
   };
   return (
@@ -48,11 +57,16 @@ export default function SignInForm() {
           onChange={onChange}
         />
         <input type="submit" className="authInput authSubmit" value="Sign in" />
-        {error && <span className="authError">{error}</span>}
+        {error && (
+          <span className="authError">
+            {error}
+            {verify && <EmailVerifyForm userObj={userObj} />}
+          </span>
+        )}
       </form>
-      <span className="authSwitch">
-        <div>Don't have an account?</div>
-        <strong>SIGN UP</strong>
+      <span className="authSwitch" onClick={() => history.push("/signup")}>
+        <span>Don't have an account? </span>
+        <strong>Sign up</strong>
       </span>
     </>
   );

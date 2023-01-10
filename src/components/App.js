@@ -1,18 +1,18 @@
 import { BrowserRouter } from "react-router-dom";
 import AppRouter from "./Router";
 import { useEffect, useState } from "react";
-import { onAuthStateChanged } from "firebase/auth";
-import { auth } from "fbase";
+import { authService, dbService } from "fbase";
 
 function App() {
   const [init, setInit] = useState(false);
   const [userObj, setUserObj] = useState(null);
   useEffect(() => {
-    onAuthStateChanged(auth, (user) => {
+    authService.onAuthStateChanged((user) => {
       if (user) {
         setUserObj({
           displayName: user.displayName,
           uid: user.uid,
+          isValid: dbService.collection("users").doc(user.uid).get(),
           updateProfile: (args) => user.updateProfile(args),
         });
       } else {
@@ -22,7 +22,7 @@ function App() {
     });
   }, []);
   const refreshUser = () => {
-    const user = auth.currentUser;
+    const user = authService.currentUser;
     setUserObj({
       displayName: user.displayName,
       uid: user.uid,
@@ -36,7 +36,7 @@ function App() {
         <BrowserRouter>
           <AppRouter
             refreshUser={refreshUser}
-            isLoggedIn={Boolean(userObj)}
+            isLoggedI={userObj && userObj.isValid}
             userObj={userObj}
           />
         </BrowserRouter>

@@ -1,0 +1,7 @@
+.authSwitch {
+  display: flex;
+  justify-content: left;
+  flex-direction: column;
+  gap: 5px;
+  margin-top: 1rem;
+}

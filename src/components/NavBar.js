@@ -21,7 +21,7 @@ export default function NavBar({ isLoggedIn, userObj }) {
           </li>
         ) : (
           <li>
-            <Link to="/login">Login</Link>
+            <Link to="/signin">Sign In</Link>
           </li>
         )}
       </ul>

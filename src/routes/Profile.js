@@ -1,18 +1,49 @@
-import { auth } from "fbase";
-import { signOut } from "firebase/auth";
+import { useEffect, useState } from "react";
+import { authService, dbService } from "fbase";
 import { useHistory } from "react-router-dom";
 
 export default function Profile() {
+  const [user, setUser] = useState(null);
   const history = useHistory();
   const handleLogOutClick = () => {
-    signOut(auth);
+    authService.signOut();
     history.push("/");
     alert("You are logged out!");
   };
+  useEffect(() => {
+    const unsubscribe = authService.onAuthStateChanged((authUser) => {
+      if (authUser) {
+        // User is signed in. Get their name from the "users" collection.
+        dbService
+          .doc(`users/${authUser.uid}`)
+          .get()
+          .then((doc) => {
+            setUser(doc.data());
+          });
+      } else {
+        // User is signed out.
+        setUser(null);
+      }
+    });
+
+    return () => {
+      // Perform cleanup on unmount.
+      unsubscribe();
+    };
+  }, []);
+
   return (
     <>
-      <h1>This is Profile Page!</h1>
-
+      <div>
+        {user && (
+          <>
+            <h1>Hello, {user.preferredName || user.firstName}!</h1>
+            <p>
+              Your name is {user.firstName} {user.lastName}.
+            </p>
+          </>
+        )}
+      </div>
       <button onClick={handleLogOutClick}>log out</button>
     </>
   );
