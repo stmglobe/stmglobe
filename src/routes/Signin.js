@@ -1,34 +1,51 @@
-import SignInForm from "components/SigninForm";
-import { authService, firebaseInstance } from "fbase";
-import { useEffect, useState } from "react";
+import { authService, dbService, firebaseInstance } from "fbase";
+import { useState } from "react";
+import "../styles/signIn.css";
+import { FaGoogle } from "react-icons/fa";
+import { useHistory } from "react-router-dom";
 
-export default function Signin({ userObj }) {
-  function GoogleLogin() {
-    const [user, setUser] = useState(null);
-
-    useEffect(() => {
-      const unregisterAuthObserver = authService.onAuthStateChanged(
-        async (user) => {
-          if (user) {
-            setUser(user);
+export default function Signin() {
+  // const [isNewUser, setIsNewUser] = useState(false);
+  const [error, setError] = useState(null);
+  const history = useHistory();
+  const getDomainFromEmail = (email) => {
+    return email.split("@")[1];
+  };
+  const handleSignIn = () => {
+    const provider = new firebaseInstance.auth.GoogleAuthProvider();
+    authService
+      .signInWithPopup(provider)
+      .then((userCredential) => {
+        const domain = getDomainFromEmail(userCredential.user.email);
+        if (domain === "smschool.us") {
+          if (userCredential.additionalUserInfo.isNewUser) {
+            dbService.ref(`users/${userCredential.user.displayName}`).set({
+              uid: userCredential.user.uid,
+              isValid: true,
+              firstName: userCredential.user.displayName.split(" ")[0],
+              lastName: userCredential.user.displayName.split(" ")[1],
+            });
           } else {
-            setUser(null);
+            history.push("/");
           }
+        } else {
+          throw new Error(
+            "You are only allowed to sign up with 'smschool.us' email address."
+          );
         }
-      );
-      return () => {
-        unregisterAuthObserver();
-      };
-    }, []);
-    const handleSignIn = () => {
-      const provider = new firebaseInstance.GoogleAuthProvider();
-      authService.signInWithPopup(provider);
-    };
-  }
+      })
+      .catch((error) => {
+        setError(error);
+        authService.currentUser.delete();
+      });
+  };
+
   return (
-    <>
-      <SignInForm userObj={userObj} />
-      {/* sign in with google */}
-    </>
+    <div className="container googleSignIn">
+      <button onClick={handleSignIn}>
+        <FaGoogle /> Sign in with Google
+      </button>
+      {error && <span>{error}</span>}
+    </div>
   );
 }

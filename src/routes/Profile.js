@@ -10,16 +10,16 @@ export default function Profile() {
     history.push("/");
     alert("You are logged out!");
   };
+
   useEffect(() => {
-    const unsubscribe = authService.onAuthStateChanged((authUser) => {
+    const unsubscribe = authService.onAuthStateChanged(async (authUser) => {
       if (authUser) {
         // User is signed in. Get their name from the "users" collection.
-        dbService
-          .doc(`users/${authUser.uid}`)
-          .get()
-          .then((doc) => {
-            setUser(doc.data());
-          });
+        const userDataSnapshot = await dbService
+          .ref(`users/${authUser.displayName}`)
+          .once("value");
+        const userData = userDataSnapshot.val();
+        setUser(userData);
       } else {
         // User is signed out.
         setUser(null);

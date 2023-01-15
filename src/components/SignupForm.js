@@ -1,65 +1,22 @@
-import { authService } from "fbase";
 import { useState } from "react";
-import { useHistory } from "react-router-dom";
-import { dbService } from "fbase";
 
-export default function SignupForm() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
+export default function SignupForm({ email, user, handleSignUp }) {
+  const [firstName, setFirstName] = useState(user.displayName.split(" ")[0]);
+  const [lastName, setLastName] = useState(user.displayName.split(" ")[1]);
   const [preferredName, setPreferredName] = useState("");
   const [grade, setGrade] = useState(9);
-  const [error, setError] = useState(null);
 
-  const handleSignup = async (event, history) => {
-    event.preventDefault();
-    const userCredential = await authService.createUserWithEmailAndPassword(
-      email,
-      password
-    );
-    const user = userCredential.user;
-    // Add the user's name and preferred name to the "users" collection
-    console.log(user.uid);
-    console.log(firstName, lastName, preferredName, grade);
-    try {
-      await dbService.doc("users/" + user.uid).set({
-        firstName: firstName,
-        lastName: lastName,
-        preferredName: preferredName,
-        grade: grade,
-      });
-      authService.currentUser.sendEmailVerification();
-      console.log("Verify Email sent");
-      alert("Please verify your email before signing in.");
-      history.push("/signin");
-    } catch (error) {
-      setError(error.message);
-      console.log(error);
-      authService.currentUser.delete();
-    }
-  };
-  const history = useHistory();
   return (
-    <form onSubmit={(event) => handleSignup(event, history)}>
+    <form
+      className="signupForm"
+      onSubmit={(event) => {
+        event.preventDefault();
+        handleSignUp({ firstName, lastName, preferredName, grade });
+      }}
+    >
       <label>
         Email:
-        <input
-          type="email"
-          value={email}
-          required
-          onChange={(event) => setEmail(event.target.value)}
-        />
-      </label>
-      <br />
-      <label>
-        Password:
-        <input
-          type="password"
-          value={password}
-          required
-          onChange={(event) => setPassword(event.target.value)}
-        />
+        <input type="email" value={email} required readOnly />
       </label>
       <br />
       <label>
@@ -94,19 +51,13 @@ export default function SignupForm() {
       <br />
       <label>
         Grade:
-        <select
-          onChange={(event) => {
-            setGrade(event.target.value);
-            console.log(event.target.value);
-          }}
-        >
+        <select onChange={(event) => setGrade(event.target.value)}>
           <option value="9">9th grade</option>
           <option value="10">10th grade</option>
           <option value="11">11th grade</option>
           <option value="12">12th grade</option>
         </select>
       </label>
-      {error && <p color="red">{error}</p>}
       <br />
       <button type="submit">Sign Up</button>
     </form>

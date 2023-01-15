@@ -2,17 +2,24 @@ import { BrowserRouter } from "react-router-dom";
 import AppRouter from "./Router";
 import { useEffect, useState } from "react";
 import { authService, dbService } from "fbase";
+import "simpledotcss/simple.min.css";
 
 function App() {
   const [init, setInit] = useState(false);
   const [userObj, setUserObj] = useState(null);
   useEffect(() => {
-    authService.onAuthStateChanged((user) => {
+    authService.onAuthStateChanged(async (user) => {
       if (user) {
+        console.log("AUTH State Changed!");
+        const userDataSnapshot = await dbService
+          .ref(`users/${user.displayName}`)
+          .once("value");
+        const isValid = userDataSnapshot.val()?.isValid;
+        console.log(isValid);
         setUserObj({
           displayName: user.displayName,
           uid: user.uid,
-          isValid: dbService.collection("users").doc(user.uid).get(),
+          isValid: isValid,
           updateProfile: (args) => user.updateProfile(args),
         });
       } else {
@@ -23,6 +30,10 @@ function App() {
   }, []);
   const refreshUser = () => {
     const user = authService.currentUser;
+    user.reload();
+    authService.updateCurrentUser(user);
+    console.log("user refreshed!");
+    console.log(user);
     setUserObj({
       displayName: user.displayName,
       uid: user.uid,
@@ -36,7 +47,7 @@ function App() {
         <BrowserRouter>
           <AppRouter
             refreshUser={refreshUser}
-            isLoggedI={userObj && userObj.isValid}
+            isLoggedIn={userObj && userObj.isValid}
             userObj={userObj}
           />
         </BrowserRouter>

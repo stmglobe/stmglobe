@@ -36,38 +36,36 @@ export default function SignInForm({ userObj }) {
     }
   };
   return (
-    <>
-      <form onSubmit={onSubmit} className="container">
-        <input
-          name="email"
-          type="email"
-          placeholder="Email"
-          required
-          value={email}
-          onChange={onChange}
-          className="authInput"
-        />
-        <input
-          name="password"
-          type="password"
-          placeholder="Password"
-          required
-          value={password}
-          className="authInput"
-          onChange={onChange}
-        />
-        <input type="submit" className="authInput authSubmit" value="Sign in" />
-        {error && (
-          <span className="authError">
-            {error}
-            {verify && <EmailVerifyForm userObj={userObj} />}
-          </span>
-        )}
-      </form>
+    <form onSubmit={onSubmit} className="container signinForm">
+      <input
+        name="email"
+        type="email"
+        placeholder="Email"
+        required
+        value={email}
+        onChange={onChange}
+        className="authInput"
+      />
+      <input
+        name="password"
+        type="password"
+        placeholder="Password"
+        required
+        value={password}
+        className="authInput"
+        onChange={onChange}
+      />
+      <input type="submit" className="authInput authSubmit" value="Sign in" />
+      {error && (
+        <span className="authError">
+          {error}
+          {verify && <EmailVerifyForm userObj={userObj} />}
+        </span>
+      )}
       <span className="authSwitch" onClick={() => history.push("/signup")}>
         <span>Don't have an account? </span>
         <strong>Sign up</strong>
       </span>
-    </>
+    </form>
   );
 }

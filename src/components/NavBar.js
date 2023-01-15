@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 
-export default function NavBar({ isLoggedIn, userObj }) {
+export default function NavBar({ isLoggedIn }) {
   return (
     <nav>
       <ul
@@ -13,6 +13,18 @@ export default function NavBar({ isLoggedIn, userObj }) {
       >
         <li>
           <Link to="/">Home</Link>
+        </li>
+        <li>
+          <Link to="/stmnow">St. M Now</Link>
+        </li>
+        <li>
+          <Link to="/school">School Related</Link>
+        </li>
+        <li>
+          <Link to="/board">Board</Link>
+        </li>
+        <li>
+          <Link to="/about">About</Link>
         </li>
 
         {isLoggedIn ? (
