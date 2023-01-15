@@ -10,12 +10,10 @@ function App() {
   useEffect(() => {
     authService.onAuthStateChanged(async (user) => {
       if (user) {
-        console.log("AUTH State Changed!");
         const userDataSnapshot = await dbService
           .ref(`users/${user.displayName}`)
           .once("value");
         const isValid = userDataSnapshot.val()?.isValid;
-        console.log(isValid);
         setUserObj({
           displayName: user.displayName,
           uid: user.uid,
