@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import Logo from "./Logo";
 
 export default function NavBar({ isLoggedIn }) {
   return (
@@ -11,6 +12,7 @@ export default function NavBar({ isLoggedIn }) {
           gap: 30,
         }}
       >
+        <Logo size="lg" />
         <li>
           <Link to="/">Home</Link>
         </li>

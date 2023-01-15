@@ -2,7 +2,6 @@ import { BrowserRouter } from "react-router-dom";
 import AppRouter from "./Router";
 import { useEffect, useState } from "react";
 import { authService, dbService } from "fbase";
-import "simpledotcss/simple.min.css";
 
 function App() {
   const [init, setInit] = useState(false);
