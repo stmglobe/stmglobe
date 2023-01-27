@@ -1,0 +1,13 @@
+.link {
+  text-decoration: none;
+  color: white;
+  display: block;
+}
+
+.logo-link {
+  display: flex;
+}
+
+.typo {
+  color: black;
+}

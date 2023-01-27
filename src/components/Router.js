@@ -1,7 +1,6 @@
 import React from "react";
 import { HashRouter as Router, Route, Switch } from "react-router-dom";
 import Home from "../routes/Home";
-import NavBar from "./NavBar";
 import Profile from "../routes/Profile";
 import Signin from "../routes/Signin";
 import Signup from "routes/Signup";
@@ -9,48 +8,73 @@ import StmNow from "routes/StmNow";
 import SchoolRelated from "routes/SchoolRelated";
 import Board from "routes/Board";
 import About from "routes/About";
+import ResponsiveAppBar from "./AppBar";
+import Logout from "routes/Logout";
+import Post from "./post/Post";
 
 const AppRouter = ({ refreshUser, isLoggedIn, userObj }) => {
   return (
     <Router>
-      <NavBar isLoggedIn={isLoggedIn} userObj={userObj} />
+      <ResponsiveAppBar isLoggedIn={isLoggedIn} />
       <Switch>
-        <Route exact path="/">
-          <Home isLoggedIn={isLoggedIn} userObj={userObj} />
-        </Route>
-        <Route exact path="/profile">
-          <Profile isLoggedIn={isLoggedIn} userObj={userObj} />
-        </Route>
-        <Route exact path="/signin">
+        <>
           {isLoggedIn ? (
-            <Home isLoggedIn={isLoggedIn} userObj={userObj} />
+            <>
+              <Route exact path="/">
+                <Home isLoggedIn={isLoggedIn} userObj={userObj} />
+              </Route>
+              <Route exact path="/profile">
+                <Profile isLoggedIn={isLoggedIn} userObj={userObj} />
+              </Route>
+              <Route exact path="/stmnow">
+                <StmNow />
+              </Route>
+              <Route exact path="/school">
+                <SchoolRelated />
+              </Route>
+              <Route exact path="/board">
+                <Board />
+              </Route>
+              <Route exact path="/about">
+                <About />
+              </Route>
+              <Route exact path="/post/:postId">
+                <Post />
+              </Route>
+              <Route exact path="/logout">
+                <Logout />
+              </Route>
+            </>
           ) : (
-            <Signin
-              isLoggedIn={isLoggedIn}
-              userObj={userObj}
-              refreshUser={refreshUser}
-            />
+            <>
+              <Route exact path="/">
+                <Home isLoggedIn={isLoggedIn} userObj={userObj} />
+              </Route>
+              <Route exact path="/signin">
+                <Signin
+                  isLoggedIn={isLoggedIn}
+                  userObj={userObj}
+                  refreshUser={refreshUser}
+                />
+              </Route>
+              <Route exact path="/signup">
+                <Signup isLoggedIn={isLoggedIn} userObj={userObj} />
+              </Route>
+              <Route exact path="/stmnow">
+                <StmNow />
+              </Route>
+              <Route exact path="/school">
+                <SchoolRelated />
+              </Route>
+              <Route exact path="/board">
+                <Board />
+              </Route>
+              <Route exact path="/about">
+                <About />
+              </Route>
+            </>
           )}
-        </Route>
-        <Route exact path="/signup">
-          {isLoggedIn ? (
-            <Home isLoggedIn={isLoggedIn} userObj={userObj} />
-          ) : (
-            <Signup isLoggedIn={isLoggedIn} userObj={userObj} />
-          )}
-        </Route>
-        <Route exact path="/stmnow">
-          <StmNow />
-        </Route>
-        <Route exact path="/school">
-          <SchoolRelated />
-        </Route>
-        <Route exact path="/board">
-          <Board />
-        </Route>
-        <Route exact path="/about">
-          <About />
-        </Route>
+        </>
       </Switch>
     </Router>
   );

@@ -19,8 +19,7 @@ export default function Signin() {
         const domain = getDomainFromEmail(userCredential.user.email);
         if (domain === "smschool.us") {
           if (userCredential.additionalUserInfo.isNewUser) {
-            dbService.ref(`users/${userCredential.user.displayName}`).set({
-              uid: userCredential.user.uid,
+            dbService.ref(`users/${userCredential.user.uid}`).set({
               isValid: true,
               firstName: userCredential.user.displayName.split(" ")[0],
               lastName: userCredential.user.displayName.split(" ")[1],

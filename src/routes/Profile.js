@@ -16,7 +16,7 @@ export default function Profile() {
       if (authUser) {
         // User is signed in. Get their name from the "users" collection.
         const userDataSnapshot = await dbService
-          .ref(`users/${authUser.displayName}`)
+          .ref(`users/${authUser.uid}`)
           .once("value");
         const userData = userDataSnapshot.val();
         setUser(userData);

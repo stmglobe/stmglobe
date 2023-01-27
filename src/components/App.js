@@ -2,6 +2,7 @@ import { BrowserRouter } from "react-router-dom";
 import AppRouter from "./Router";
 import { useEffect, useState } from "react";
 import { authService, dbService } from "fbase";
+import "../styles/app.css";
 
 function App() {
   const [init, setInit] = useState(false);
@@ -10,7 +11,7 @@ function App() {
     authService.onAuthStateChanged(async (user) => {
       if (user) {
         const userDataSnapshot = await dbService
-          .ref(`users/${user.displayName}`)
+          .ref(`users/${user.uid}`)
           .once("value");
         const isValid = userDataSnapshot.val()?.isValid;
         setUserObj({

@@ -2,20 +2,24 @@
   height: auto;
 }
 .size-xsm {
-  max-width: 16px;
+  width: 16px;
 }
 .size-sm {
-  max-width: 24px;
+  width: 24px;
 }
 .size-md {
-  max-width: 32px;
+  width: 32px;
 }
 .size-lg {
-  max-width: 40px;
+  width: 40px;
 }
 .size-xlg {
-  max-width: 48px;
+  width: 48px;
 }
 .size-xxlg {
-  max-width: 64px;
+  width: 64px;
+}
+
+#appBarLogo {
+  margin-right: 8px;
 }
