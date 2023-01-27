@@ -72,6 +72,9 @@ const AppRouter = ({ refreshUser, isLoggedIn, userObj }) => {
               <Route exact path="/about">
                 <About />
               </Route>
+              <Route exact path="/post/:postId">
+                <Post />
+              </Route>
             </>
           )}
         </>
