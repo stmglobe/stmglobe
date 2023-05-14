@@ -1,3 +1,5 @@
+import PostFactory from "components/post/PostFactory";
+
 export default function Board() {
-  return <h1>This is Board Page!</h1>;
+  return <PostFactory boardName="board" />;
 }

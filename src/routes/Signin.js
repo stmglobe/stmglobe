@@ -5,24 +5,23 @@ import { FaGoogle } from "react-icons/fa";
 import { useHistory } from "react-router-dom";
 
 export default function Signin() {
-  // const [isNewUser, setIsNewUser] = useState(false);
   const [error, setError] = useState(null);
   const history = useHistory();
-  const getDomainFromEmail = (email) => {
-    return email.split("@")[1];
-  };
   const handleSignIn = () => {
     const provider = new firebaseInstance.auth.GoogleAuthProvider();
     authService
       .signInWithPopup(provider)
       .then((userCredential) => {
-        const domain = getDomainFromEmail(userCredential.user.email);
-        if (domain === "smschool.us") {
-          if (userCredential.additionalUserInfo.isNewUser) {
-            dbService.ref(`users/${userCredential.user.uid}`).set({
+        const { email, displayName, uid } = userCredential.user;
+        const { isNewUser } = userCredential.additionalUserInfo;
+        const [firstName, lastName] = displayName.split(" ");
+        const domain = email.split("@")[1];
+        if (domain === "smschool.us" || true) {
+          if (isNewUser) {
+            dbService.ref(`users/${uid}`).set({
               isValid: true,
-              firstName: userCredential.user.displayName.split(" ")[0],
-              lastName: userCredential.user.displayName.split(" ")[1],
+              firstName: firstName,
+              lastName: lastName,
             });
           } else {
             history.push("/");

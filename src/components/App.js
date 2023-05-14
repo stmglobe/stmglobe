@@ -3,9 +3,10 @@ import AppRouter from "./Router";
 import { useEffect, useState } from "react";
 import { authService, dbService } from "fbase";
 import "../styles/app.css";
+import "../styles/reset.css";
 
 function App() {
-  const [init, setInit] = useState(false);
+  const [init, setInit] = useState(true);
   const [userObj, setUserObj] = useState(null);
   useEffect(() => {
     authService.onAuthStateChanged(async (user) => {
@@ -18,12 +19,13 @@ function App() {
           displayName: user.displayName,
           uid: user.uid,
           isValid: isValid,
+          profilePhotoURL: user.photoURL,
           updateProfile: (args) => user.updateProfile(args),
         });
       } else {
         setUserObj(null);
       }
-      setInit(true);
+      setInit(false);
     });
   }, []);
   const refreshUser = () => {
@@ -41,7 +43,7 @@ function App() {
 
   return (
     <>
-      {init ? (
+      {!init ? (
         <BrowserRouter>
           <AppRouter
             refreshUser={refreshUser}

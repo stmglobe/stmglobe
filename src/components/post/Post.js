@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react";
-import ReactQuill from "react-quill";
-import "react-quill/dist/quill.snow.css";
 import { dbService, fstoreService } from "fbase";
 import { useParams } from "react-router-dom";
+import DOMPurify from "dompurify";
 
 export default function Post() {
   const [content, setContent] = useState(null);
@@ -26,7 +25,7 @@ export default function Post() {
   useEffect(() => {
     if (documentData && documentData.data()) {
       const { content, createdAt, createdBy, title } = documentData.data();
-      setContent(content);
+      setContent(DOMPurify.sanitize(content));
       setCreatedAt(createdAt);
       setCreatedBy(createdBy);
       setPostTitle(title);
@@ -49,40 +48,13 @@ export default function Post() {
     setCreatedAtStr(createdAt.toDate().toDateString());
   }, [createdAt]);
 
-  const modules = {
-    toolbar: false,
-  };
-
-  const formats = [
-    "header",
-    "font",
-    "size",
-    "color",
-    "background",
-    "align",
-    "bold",
-    "italic",
-    "underline",
-    "strike",
-    "blockquote",
-    "list",
-    "bullet",
-    "indent",
-    "link",
-    "image",
-  ];
-
   return (
     documentData &&
     documentData.data() && (
       <>
         <div>{postTitle}</div>
-        <ReactQuill
-          theme="snow"
-          value={content}
-          readOnly={true}
-          modules={modules}
-          formats={formats}
+        <div
+          dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(content) }}
         />
         <div>Created At: {createdAtStr}</div>
         <div>Created By: {createdByUserName}</div>

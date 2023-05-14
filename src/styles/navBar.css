@@ -1,0 +1,411 @@
+header {
+  /* background-color: #35694e; */
+  background-color: #289b60;
+  overflow: visible;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  max-height: 64px;
+}
+
+.navbar.container {
+  width: 100%;
+  margin-left: auto;
+  box-sizing: border-box;
+  margin-right: auto;
+  display: block;
+  padding-left: 24px;
+  padding-right: 24px;
+}
+
+ul {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  position: relative;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 24px;
+  min-height: 64px;
+  box-sizing: border-box;
+}
+
+#main-logo {
+  margin-right: 16px;
+}
+
+.navigator {
+  /* margin: 0 4px; */
+  min-width: 64px;
+}
+
+.navigator .nav-link {
+  padding: 8px 4px;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+  text-decoration: none;
+  color: white;
+  display: block;
+  text-align: center;
+}
+
+.navigation {
+  display: flex;
+  align-items: center;
+  justify-content: left;
+  width: 100%;
+  margin: 0 auto;
+}
+.nav-button {
+  border: none;
+  margin: 0;
+  border-radius: 6px;
+  width: auto;
+  overflow: visible;
+  transition: 0.2s ease-in-out;
+  background: transparent;
+  /* inherit font & color from ancestor */
+  color: inherit;
+  font: inherit;
+
+  /* Normalize `line-height`. Cannot be changed from `normal` in Firefox 4+. */
+  line-height: normal;
+
+  /* Corrects font smoothing for webkit */
+  -webkit-font-smoothing: inherit;
+  -moz-osx-font-smoothing: inherit;
+}
+
+.nav-button:hover {
+  transition: 0.2s ease-in-out;
+  background-color: rgba(256, 256, 256, 0.2);
+}
+
+.logo-title {
+  display: flex;
+  align-items: center;
+  margin-right: 10px;
+  min-width: 150px;
+  color: white;
+  font-family: sans-serif;
+  font-weight: 800;
+  letter-spacing: 0.1rem;
+  font-size: 24px;
+  color: "inherit";
+  text-decoration: "none";
+}
+
+.link {
+  text-decoration: none;
+  color: white;
+  display: block;
+}
+
+.logo-link {
+  display: flex;
+}
+
+.searchbox-container.display-desktop {
+  width: auto;
+  height: 40px;
+  border-radius: 5px;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.4);
+  background-color: white;
+  margin: 0 24px;
+  margin-left: auto;
+  transition: 0.1s ease-in-out;
+}
+
+.searchbox-form {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  height: 100%;
+  transition: 0.1s ease-in-out;
+}
+
+.searchbox-input {
+  width: 80px;
+  height: 90%;
+  border: none;
+  outline: none;
+  margin: 0 10px;
+  font-size: 14px;
+  font-weight: 500;
+  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+  text-decoration: none;
+  transition: 0.15s ease-in-out;
+}
+
+.searchbox-input:focus {
+  width: 120px;
+  transition: 0.15s ease-in-out;
+}
+
+.display-sm {
+  display: none;
+}
+
+.searchbox-btn {
+  padding: 0 10px;
+  cursor: pointer;
+}
+
+.searchbox-btn > path {
+  fill: #757575;
+  stroke: #757575;
+}
+
+.searchbox-submit-input {
+  display: none;
+}
+
+.navigator-signin-container {
+  height: 40px;
+  border: white 1px solid;
+  border-radius: 25px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 10px;
+  margin-left: 10px;
+}
+
+.navigator-logo {
+  display: inline;
+  margin-bottom: 2px;
+}
+
+.navigator-text {
+  display: inline;
+  padding: 8px 4px;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+  text-decoration: none;
+  color: white;
+  text-align: center;
+  width: 60px;
+}
+
+.navigator-link-wrapper {
+  display: flex;
+  align-items: center;
+  margin: 0 4px;
+}
+
+.navigator-signin-container {
+  background-color: rgba(256, 256, 256, 0);
+  transition: 0.1s ease-in-out;
+}
+
+.navigator-signin-container:hover {
+  background-color: rgba(256, 256, 256, 0.2);
+  transition: 0.1s ease-in-out;
+}
+
+.profile-img {
+  width: 40px;
+  height: 40px;
+}
+
+.profile-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.profile-link {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hide {
+  display: none;
+}
+
+/* 20230324 Js Na - Profile Modal */
+.menu-background {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  /* background-color: rgba(0, 0, 0, 0.5); */
+}
+
+.menu-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 10px;
+  width: 120px;
+  height: 130px;
+  background-color: #ffffff;
+  border-radius: 12px;
+  position: absolute;
+  float: right;
+  right: 24px;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.3);
+  animation: slide-in 0.2s ease-in-out;
+}
+.menu-container.hide {
+  animation: slide-out 0.2s ease-in-out;
+}
+@keyframes slide-in {
+  0% {
+    transform: translateY(-5%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+@keyframes slide-out {
+  0% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-5%);
+    opacity: 0;
+  }
+}
+
+.menu-item {
+  border-radius: 5px;
+  transition: 0.1s ease-in-out;
+}
+
+.menu-item:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+  transition: 0.1s ease-in-out;
+}
+
+.menu-item > a.menu-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 80px;
+  height: 30px;
+  color: black;
+  text-decoration: none;
+  font-family: sans-serif;
+}
+
+/* 20230324 Js Na - Profile Modal */
+.hamburger-background {
+  position: fixed;
+  right: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  /* background-color: rgba(0, 0, 0, 0.5); */
+}
+
+.hamburger-container {
+  display: flex;
+  z-index: 1;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 10px;
+  width: auto;
+  background-color: #ffffff;
+  border-radius: 12px;
+  position: absolute;
+  float: left;
+  left: 24px;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.3);
+  animation: slide-in 0.2s ease-in-out;
+}
+.hamburger-container.hide {
+  animation: slide-out 0.2s ease-in-out;
+}
+
+.hamburger-toggle {
+  z-index: 2;
+}
+
+.hamburger-container .menu-link {
+  padding: 5px 2px;
+}
+
+.hamburger-container .searchbox-form {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: auto;
+  height: 40px;
+  margin: 0;
+}
+
+.hamburger-container .searchbox-container {
+  box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.3);
+  width: auto;
+  margin: 10px 0 0 0;
+}
+.hamburger-container .menu-item:hover {
+  background-color: inherit;
+}
+
+.hamburger-container .searchbox-input {
+  width: 80px;
+  transition: 0.1s ease-in-out;
+  margin-right: 0;
+}
+.hamburger-container .searchbox-input:focus {
+  width: 150px;
+  transition: 0.1s ease-in-out;
+}
+
+.hamburger-container .searchbox-btn {
+  padding-left: 0;
+}
+
+.display-desktop {
+  display: flex;
+  align-items: center;
+}
+
+.display-mobile {
+  display: none;
+}
+
+@media (max-width: 900px) {
+  .display-desktop {
+    display: none;
+  }
+
+  .display-mobile {
+    display: flex;
+  }
+
+  .main-logo-container {
+    display: flex;
+    flex-grow: 100;
+    justify-content: center;
+  }
+
+  .searchbox-btn-container {
+    margin-right: 20px;
+  }
+  .display-sm {
+    display: block;
+  }
+  .searchbox-btn.display-sm > path {
+    fill: white;
+    stroke: white;
+  }
+}

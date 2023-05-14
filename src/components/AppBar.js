@@ -1,19 +1,68 @@
-import * as React from "react";
-import AppBar from "@mui/material/AppBar";
-import Box from "@mui/material/Box";
-import Toolbar from "@mui/material/Toolbar";
-import IconButton from "@mui/material/IconButton";
-import Typography from "@mui/material/Typography";
-import Menu from "@mui/material/Menu";
-import MenuIcon from "@mui/icons-material/Menu";
-import Container from "@mui/material/Container";
-import Avatar from "@mui/material/Avatar";
-import Button from "@mui/material/Button";
-import Tooltip from "@mui/material/Tooltip";
-import MenuItem from "@mui/material/MenuItem";
+// import MUI.Toolbar from "@mui/material/Toolbar";
+// import MUI.IconButton from "@mui/material/IconButton";
+// import MUI.Typography from "@mui/material/Typography";
+// import MUI.Menu from "@mui/material/Menu";
+// import MUI.Container from "@mui/material/Container";
+// import MUI.Avatar from "@mui/material/Avatar";
+// import MUI.Button from "@mui/material/Button";
+// import MUI.Tooltip from "@mui/material/Tooltip";
+// import MUI.MenuItem from "@mui/material/MenuItem";
 import Logo from "./Logo";
+import {
+  AppBar,
+  Toolbar,
+  IconButton,
+  Typography,
+  Menu,
+  Box,
+  Container,
+  Avatar,
+  Button,
+  Tooltip,
+  MenuItem,
+  styled,
+  alpha,
+} from "@mui/material";
+import MenuIcon from "@mui/icons-material/Menu";
 import { Link } from "react-router-dom";
 import "../styles/appBar.css";
+import { useState } from "react";
+import SearchBar from "material-ui-search-bar";
+
+const Search = styled("div")(({ theme }) => ({
+  position: "relative",
+  color: "white",
+  borderRadius: theme.shape.borderRadius,
+  border: "0",
+  backgroundColor: "rgb(255, 255, 255, 0.15)",
+  "&:hover": {
+    backgroundColor: "rgb(255, 255, 255, 0.25)",
+  },
+  marginRight: theme.spacing(2),
+  marginLeft: 0,
+  width: "30ch",
+  [theme.breakpoints.up("xs")]: {
+    marginLeft: theme.spacing(3),
+    width: "auto",
+  },
+}));
+
+const StyledInputBase = styled(SearchBar)(({ theme }) => ({
+  color: "white",
+  "& .MuiInputBase-input": {
+    padding: theme.spacing(1, 1, 1, 0),
+    transition: theme.transitions.create("width"),
+    // backgroundColor: alpha("#fff", 0.15),
+    // "&:hover": {
+    //   backgroundColor: alpha("#fff", 0.25),
+    // },
+    width: "100%",
+    [theme.breakpoints.up("xs")]: {
+      width: "12ch",
+      "&:focus": { width: "20ch" },
+    },
+  },
+}));
 
 const pages = [
   {
@@ -40,8 +89,8 @@ const settings = [
 ];
 
 function ResponsiveAppBar({ isLoggedIn }) {
-  const [anchorElNav, setAnchorElNav] = React.useState(null);
-  const [anchorElUser, setAnchorElUser] = React.useState(null);
+  const [anchorElNav, setAnchorElNav] = useState(null);
+  const [anchorElUser, setAnchorElUser] = useState(null);
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -169,6 +218,17 @@ function ResponsiveAppBar({ isLoggedIn }) {
               </Link>
             ))}
           </Box>
+          <Search
+            sx={{
+              marginRight: 3,
+              display: "flex",
+            }}
+          >
+            <StyledInputBase
+              onRequestSearch={console.log}
+              placeholder="Search..."
+            />
+          </Search>
 
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">

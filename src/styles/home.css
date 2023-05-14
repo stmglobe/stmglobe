@@ -1,0 +1,43 @@
+.home {
+  margin: 0 70px;
+}
+
+.logo-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  height: 240px;
+}
+
+#main-text-logo {
+  width: 900px;
+}
+
+.logo-border {
+  border-left: 4px solid #1a4324;
+  height: 75px;
+}
+
+.logo-description {
+  font-family: "arial black", arial-w01-black, arial-w02-black,
+    "arial-w10 black", sans-serif;
+  font-weight: 400;
+  size: 22px;
+  line-height: 24px;
+  color: #1a4324;
+}
+
+.image-slider {
+  width: 100%;
+  /* TEMP!!! */
+  margin-bottom: 500px;
+  /* TEMP!!! */
+}
+
+.rsis-image {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  margin-right: 500px !important;
+}
